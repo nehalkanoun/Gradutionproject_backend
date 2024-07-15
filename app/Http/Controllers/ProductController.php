@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Seller;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -12,9 +13,14 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $Product=Product::all();
+        $Product = Product::all();
+        foreach ($Product as $product) {
+            $seller = Seller::findOrFail($product->seller_ID);
+            $username = $seller->username;
+            $product['username'] = $username;
+        }
         return response()->json(
-            ['data'=>$Product]
+            ['data' => $Product]
         );
     }
     /**
@@ -28,9 +34,9 @@ class ProductController extends Controller
                 'price' => ['required', 'min:1', 'integer'],
                 'seller_ID' => ['required', 'exists:sellers,id'],
             ]);
-    
+
             $product = Product::create($input);
-    
+
             return response()->json([
                 'data' => 'created',
                 'id' => $product->id
@@ -51,9 +57,9 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        $Product=Product::findOrFail($id);
+        $Product = Product::findOrFail($id);
         return response()->json([
-          'data'=>$Product
+            'data' => $Product
         ]);
     }
 
@@ -62,20 +68,20 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request ,string $id)
+    public function update(Request $request, string $id)
     {
-        $Product=Product::findOrFail($id);
-        $input=$request->validate([
-            'name'=>['required'],         
-            'price'=>['required','min:1','integer'],
-            'seller_ID'=>['required','exists:sellers,id'],
-            
-            
-    ]);
-    $Product->update($input);
-    return response()->json([
-        'data' => 'updated'
-    ]);
+        $Product = Product::findOrFail($id);
+        $input = $request->validate([
+            'name' => ['string'],
+            'price' => ['min:1', 'integer'],
+            'seller_ID' => ['string', 'exists:sellers,id'],
+
+
+        ]);
+        $Product->update($input);
+        return response()->json([
+            'data' => 'updated'
+        ]);
     }
 
     /**
@@ -83,17 +89,32 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        $Product=Product::findOrFail($id);
+        $Product = Product::findOrFail($id);
         $Product->delete();
         return response()->json([
-            'data'=>'Product Deleted'
+            'data' => 'Product Deleted'
         ]);
     }
 
-public function randomProducts()
-{
-    $randomProducts = Product::latest()->inRandomOrder()->limit(10)->get();
-    return response()->json(['data' => $randomProducts]);
-}
+    public function randomProducts()
+    {
 
+        $randomProducts2 = Product::inRandomOrder()->limit(10)->get();
+        foreach ($randomProducts2 as $product) {
+            $seller = Seller::findOrFail($product->seller_ID);
+            $username = $seller->username;
+            $product['username'] = $username;
+        }
+        return response()->json([
+            'data' => $randomProducts2,
+
+        ]);
+    }
+    public function getproduct (string $id)
+    {
+        $products = Product::where(['seller_ID' => $id])->get();
+        return response()->json([
+            'data' => $products,
+        ]);
+    }
 }

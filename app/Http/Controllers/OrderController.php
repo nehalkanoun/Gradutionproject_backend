@@ -35,13 +35,13 @@ class OrderController extends Controller
     
             $order = Order::create($input);
     
-            // Retrieve the cart associated with the order
+           
             $cart = Cart::findOrFail($input['cart_ID']);
     
-            // Retrieve the product associated with the order
+            
             $product = Product::findOrFail($input['product_ID']);
     
-            // Calculate the new total price for the cart
+           
             $newOrderTotal = $product->price * $order->amount;
             $cart->total_price += $newOrderTotal;
             $cart->save();
@@ -87,16 +87,16 @@ class OrderController extends Controller
             'cart_ID' => ['required', 'exists:carts,id']
         ]);
     
-        // Retrieve the previous order details
+       
         $previousOrder = $order->toArray();
     
-        // Update the order
+       
         $order->update($input);
     
-        // Retrieve the cart associated with the order
+    
         $cart = Cart::findOrFail($input['cart_ID']);
     
-        // Calculate the new total price for the cart
+      
         $cart->total_price -= ($previousOrder['amount'] * $previousOrder['product_ID']);
         $cart->total_price += ($order->amount * $order->product_ID);
         $cart->save();
@@ -113,17 +113,17 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
     
-        // Retrieve the cart associated with the order
+        
         $cart = Cart::findOrFail($order->cart_ID);
     
-        // Calculate the order total to be subtracted from the cart's total price
+        
         $orderTotal = $order->product->price * $order->amount;
     
-        // Subtract the order total from the cart's total price
+      
         $cart->total_price -= $orderTotal;
         $cart->save();
     
-        // Delete the order
+    
         $order->delete();
     
         return response()->json([

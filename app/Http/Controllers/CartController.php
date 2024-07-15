@@ -78,12 +78,13 @@ class CartController extends Controller
         $totalPrice = 0;
         $products = $orders->map(function ($order) use (&$totalPrice) {
             $productPrice = $order->product->price * $order->amount;
+            
             $totalPrice += $productPrice;
             return [
                 'id' => $order->product->id,
                 'name' => $order->product->name,
                 'price' => $order->product->price,
-                'seller_id' => $order->product->seller_ID,
+                'seller_username' => $order->product->seller->username,
                 'amount' => $order->amount,
                 'total_product_price' => $productPrice
             ];

@@ -101,7 +101,8 @@ class SellerController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'seller Logged In Successfully',
-                'token' => $seller->createToken("API TOKEN")->plainTextToken
+                'token' => $seller->createToken("API TOKEN")->plainTextToken,
+                'id'=>$seller->id
             ], 200);
 
         } catch (\Throwable $th) {
@@ -180,8 +181,8 @@ class SellerController extends Controller
             'username' => [Rule::unique('sellers', 'username')->ignore($Seller), 'string'],
             'password' => ['min:8'],
             'phonenumber' => [Rule::unique('sellers', 'phonenumber')->ignore($Seller), 'string', 'min:10', 'max:10'],
-            'location' => [ 'required'],
-            'details' => ['required']
+            'location' => [ 'string'],
+            'details' => ['string']
         ]);
         $Seller->update($input);
         return response()->json([

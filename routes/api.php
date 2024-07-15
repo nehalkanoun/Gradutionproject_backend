@@ -21,6 +21,21 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+
+
+
+
+
+// Route::post('/auth/login/admin', [AuthController::class, 'loginAdmin'])->name('auth.login.admin');
+// Route::post('/auth/logout/admin', [AuthController::class, 'logoutAdmin'])->name('auth.logout.admin');
+// Route::post('/auth/register/customer', [AuthController::class, 'registerCustomer'])->name('auth.register.customer');
+// Route::post('/auth/login/customer', [AuthController::class, 'loginCustomer'])->name('auth.login.customer');
+// Route::post('/auth/logout/customer', [AuthController::class, 'logoutCustomer'])->name('auth.logout.customer');
+// Route::post('/auth/register/seller', [AuthController::class, 'registerSeller'])->name('auth.register.seller');
+// Route::post('/auth/login/seller', [AuthController::class, 'loginSeller'])->name('auth.login.seller');
+// Route::post('/auth/logout/seller', [AuthController::class, 'logoutSeller'])->name('auth.logout.seller');
+
 //  Route::post('admins/login',AuthController::class)->name('admins.login');
 Route::group(['middleware'=>['auth:sanctum']],function () {
 Route::post('admins',[AdminController::class,'store'])->name('admins.store');
@@ -71,6 +86,9 @@ Route::put('products/{id}',[ProductController::class,'update'])->name('products.
 Route::delete('products/{id}',[ProductController::class,'destroy'])->name('products.destroy');
 Route::post('products',[ProductController::class,'store'])->name('products.store');
 Route::get('/random-products', [ProductController::class, 'randomProducts']);
+Route::get('/get-product/{id}', [ProductController::class, 'getproduct']);
+
+
 
 Route::group(['middleware'=>['auth:sanctum']],function () {
 Route::get('sellers',[SellerController::class,'index'])->name('sellers.index');

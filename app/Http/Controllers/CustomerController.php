@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -19,9 +20,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $Customer=Customer::all();
+        $Customer = Customer::all();
         return response()->json(
-            ['data'=>$Customer]
+            ['data' => $Customer]
         );
     }
 
@@ -38,21 +39,25 @@ class CustomerController extends Controller
                 'password' => ['required', 'min:8'],
                 'phonenumber' => ['required', 'unique:customers,phonenumber', 'min:10', 'max:10']
             ]);
-    
+
             $customer = Customer::create($input);
-    
+            $cusid['customer_ID'] = $customer->id;
+            $cart = Cart::create($cusid);
+
             return response()->json([
                 'data' => 'created',
-                'id' => $customer->id,
-                'token' => $customer->createToken('API TOKEN')->plainTextToken
+                'id' => $customer['id'],
+                'token' => $customer->createToken('API TOKEN')->plainTextToken,
+                'cart' => $cart->id
+
             ]);
         } catch (ValidationException $e) {
-            // Handle validation errors
+
             return response()->json([
                 'errors' => $e->errors()
             ], 422);
         } catch (\Exception $e) {
-            // Handle other exceptions
+
             return response()->json([
                 'error' => 'An error occurred while creating the customer.'
             ], 500);
@@ -70,13 +75,15 @@ class CustomerController extends Controller
     public function logincustomer(Request $request)
     {
         try {
-            $validateUser = Validator::make($request->all(), 
-            [
-                'username' => 'required',
-                'password' => 'required'
-            ]);
+            $validateUser = Validator::make(
+                $request->all(),
+                [
+                    'username' => 'required',
+                    'password' => 'required'
+                ]
+            );
 
-            if($validateUser->fails()){
+            if ($validateUser->fails()) {
                 return response()->json([
                     'status' => false,
                     'message' => 'validation error',
@@ -84,7 +91,7 @@ class CustomerController extends Controller
                 ], 401);
             }
 
-            if(!Auth::guard('customer')->attempt($request->only(['username', 'password']))){
+            if (!Auth::guard('customer')->attempt($request->only(['username', 'password']))) {
                 return response()->json([
                     'status' => false,
                     'message' => 'username & Password does not match with our record.',
@@ -92,11 +99,13 @@ class CustomerController extends Controller
             }
 
             $customer = customer::where('username', $request->username)->first();
-
+            $cart = Cart::where(['customer_ID' => $customer->id, 'status' => 'Waiting'])->first();
             return response()->json([
                 'status' => true,
                 'message' => 'customer Logged In Successfully',
-                'token' => $customer->createToken("API TOKEN")->plainTextToken
+                'token' => $customer->createToken("API TOKEN")->plainTextToken,
+                'cart_id' => $cart->id
+
             ], 200);
 
         } catch (\Throwable $th) {
@@ -114,17 +123,13 @@ class CustomerController extends Controller
     public function logoutcustomer(Request $request)
     {
         try {
-            // Get the token from the request body
+
             $token = $request->input('token');
-    
-           
             $tokenWithoutId = substr($token, strpos($token, '|') + 1);
-    
-            // Find the token in the database and delete it
             $deletedRows = DB::table('personal_access_tokens')
                 ->where('token', hash('sha256', $tokenWithoutId))
                 ->delete();
-    
+
             if ($deletedRows > 0) {
                 return response()->json([
                     'success' => true,
@@ -139,7 +144,7 @@ class CustomerController extends Controller
                 ], 401);
             }
         } catch (\Exception $e) {
-            
+
             Log::error('Error during logout process: ' . $e->getMessage());
             return response()->json([
                 'success' => false,
@@ -154,9 +159,9 @@ class CustomerController extends Controller
      */
     public function show(string $id)
     {
-        $Customer=Customer::findOrFail($id);
+        $Customer = Customer::findOrFail($id);
         return response()->json([
-          'data'=>$Customer
+            'data' => $Customer
         ]);
     }
 
@@ -165,18 +170,18 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request ,string $id)
+    public function update(Request $request, string $id)
     {
-        $Customer=Customer::findOrFail($id);
-        $input=$request->validate([
-            'username'=>[Rule::unique('Customers', 'username')->ignore($Customer),'string'],         
-            'password'=>['min:8'],
-            'phonenumber'=>[Rule::unique('Customers', 'phonenumber')->ignore($Customer),'string','min:10','max:10'],  
-    ]);
-    $Customer->update($input);
-    return response()->json([
-        'data' => 'updated'
-    ]);
+        $Customer = Customer::findOrFail($id);
+        $input = $request->validate([
+            'username' => [Rule::unique('Customers', 'username')->ignore($Customer), 'string'],
+            'password' => ['min:8'],
+            'phonenumber' => [Rule::unique('Customers', 'phonenumber')->ignore($Customer), 'string', 'min:10', 'max:10'],
+        ]);
+        $Customer->update($input);
+        return response()->json([
+            'data' => 'updated'
+        ]);
     }
 
     /**
@@ -184,10 +189,10 @@ class CustomerController extends Controller
      */
     public function destroy(string $id)
     {
-        $Customer=Customer::findOrFail($id);
+        $Customer = Customer::findOrFail($id);
         $Customer->delete();
         return response()->json([
-            'data'=>'Customer Deleted'
+            'data' => 'Customer Deleted'
         ]);
     }
 }
