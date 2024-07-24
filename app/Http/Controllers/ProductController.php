@@ -112,7 +112,7 @@ class ProductController extends Controller
     }
     public function getproduct (string $id)
     {
-        $products = Product::where(['seller_ID' => $id])->get();
+        $products = Product::where(['seller_ID' => $id])->get();   
         return response()->json([
             'data' => $products,
         ]);

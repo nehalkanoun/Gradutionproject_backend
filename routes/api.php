@@ -27,16 +27,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-// Route::post('/auth/login/admin', [AuthController::class, 'loginAdmin'])->name('auth.login.admin');
-// Route::post('/auth/logout/admin', [AuthController::class, 'logoutAdmin'])->name('auth.logout.admin');
-// Route::post('/auth/register/customer', [AuthController::class, 'registerCustomer'])->name('auth.register.customer');
-// Route::post('/auth/login/customer', [AuthController::class, 'loginCustomer'])->name('auth.login.customer');
-// Route::post('/auth/logout/customer', [AuthController::class, 'logoutCustomer'])->name('auth.logout.customer');
-// Route::post('/auth/register/seller', [AuthController::class, 'registerSeller'])->name('auth.register.seller');
-// Route::post('/auth/login/seller', [AuthController::class, 'loginSeller'])->name('auth.login.seller');
-// Route::post('/auth/logout/seller', [AuthController::class, 'logoutSeller'])->name('auth.logout.seller');
 
-//  Route::post('admins/login',AuthController::class)->name('admins.login');
 Route::group(['middleware'=>['auth:sanctum']],function () {
 Route::post('admins',[AdminController::class,'store'])->name('admins.store');
 Route::get('admins',[AdminController::class,'index'])->name('admins.index');
@@ -79,6 +70,10 @@ Route::get('orders/{id}',[OrderController::class,'show'])->name('orders.show');
 Route::put('orders/{id}',[OrderController::class,'update'])->name('orders.update');
 Route::delete('orders/{id}',[OrderController::class,'destroy'])->name('orders.destroy');
 Route::post('orders',[OrderController::class,'store'])->name('orders.store');
+Route::get('/getsellerorders/{id}',[OrderController::class,'getsellerorders']);
+Route::get('/getallorders',[OrderController::class,'getallorders']);
+Route::put('adminupdateorder/{id}',[OrderController::class,'adminupdateorder']);
+
 
 Route::get('products',[ProductController::class,'index'])->name('products.index');
 Route::get('products/{id}',[ProductController::class,'show'])->name('products.show');
@@ -95,6 +90,7 @@ Route::get('sellers',[SellerController::class,'index'])->name('sellers.index');
 Route::get('sellers/{id}',[SellerController::class,'show'])->name('sellers.show');
 Route::put('sellers/{id}',[SellerController::class,'update'])->name('sellers.update');
 Route::delete('sellers/{id}',[SellerController::class,'destroy'])->name('sellers.destroy');
+
 // Route::post('sellers',[SellerController::class,'store'])->name('sellers.store');
 Route::apiResource('/sellers','SellerController')->except(['index','show','update','destroy']);
 });
