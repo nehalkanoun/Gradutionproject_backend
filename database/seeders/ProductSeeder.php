@@ -25,7 +25,7 @@ class ProductSeeder extends Seeder
 
             ],
             [
-                'name'=>' عصير برتقال ',
+                'name'=>' عصير البرتقال ',
                 'price'=>'8',
                 'seller_ID'=>'1',
                 'created_at' => Carbon::now(),
@@ -39,14 +39,14 @@ class ProductSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'name'=>' مقبلات ',
+                'name'=>' طبق مقبلات ',
                 'price'=>'4',
                 'seller_ID'=>'2',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'name'=>' وجبه رئيسيه رز باللحم والمكسرات',
+                'name'=>' رز بالخلطه',
                 'price'=>'4',
                 'seller_ID'=>'2',
                 'created_at' => Carbon::now(),
@@ -74,14 +74,14 @@ class ProductSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'name'=>'كرت ',
+                'name'=>' كرت دعوه حجم صغير ',
                 'price'=>'4',
                 'seller_ID'=>'5',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'name'=>'كرت ',
+                'name'=>' كرت دعوه ',
                 'price'=>'5',
                 'seller_ID'=>'5',
                 'created_at' => Carbon::now(),
