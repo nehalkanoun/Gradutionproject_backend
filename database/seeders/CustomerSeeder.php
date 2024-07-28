@@ -17,7 +17,7 @@ class CustomerSeeder extends Seeder
         DB::table('customers')->truncate();
         $customers=[
             [
-                'username'=>'mosab',
+                'username'=>'nehalkanoun',
                 'phonenumber'=>'0910513967',
                 'password'=>Hash::make('mosab123'),
                 'created_at' => Carbon::now(),
@@ -25,15 +25,22 @@ class CustomerSeeder extends Seeder
 
             ],
             [
-                'username'=>'nehal',
+                'username'=>'alimohammed',
                 'phonenumber'=>'0910513267',
                 'password'=>Hash::make('nehal123'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'username'=>'nehal2',
+                'username'=>'arwakhaled',
                 'phonenumber'=>'0912513967',
+                'password'=>Hash::make('123456789'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'username'=>'deleted customer',
+                'phonenumber'=>'0922513967',
                 'password'=>Hash::make('123456789'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),

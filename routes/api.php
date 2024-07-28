@@ -39,10 +39,6 @@ Route::apiResource('/admins','AdminController')->except(['index','show','update'
 Route::post('/auth/loginadmin', [AdminController::class, 'loginadmin']);
 Route::post('/auth/logoutadmin', [AdminController::class, 'logoutadmin']);
 
-
-
-
-
 Route::get('carts',[CartController::class,'index'])->name('carts.index');
 Route::get('carts/{id}',[CartController::class,'show'])->name('carts.show');
 Route::put('carts/{id}',[CartController::class,'update'])->name('carts.update');
@@ -54,16 +50,11 @@ Route::get('customers',[CustomerController::class,'index'])->name('customers.ind
 Route::get('customers/{id}',[CustomerController::class,'show'])->name('customers.show');
 Route::put('customers/{id}',[CustomerController::class,'update'])->name('customers.update');
 Route::delete('customers/{id}',[CustomerController::class,'destroy'])->name('customers.destroy');
-// Route::post('customers',[CustomerController::class,'store'])->name('customers.store');
 Route::apiResource('/customers','CustomerController')->except(['index','show','update','destroy']);
 });
 Route::post('/auth/registercustomer', [CustomerController::class, 'store']);
 Route::post('/auth/logincustomer', [CustomerController::class, 'logincustomer']);
 Route::post('/auth/logoutcustomer', [CustomerController::class, 'logoutcustomer']);
-
-
-
-
 
 Route::get('orders',[OrderController::class,'index'])->name('orders.index');
 Route::get('orders/{id}',[OrderController::class,'show'])->name('orders.show');
@@ -74,7 +65,6 @@ Route::get('/getsellerorders/{id}',[OrderController::class,'getsellerorders']);
 Route::get('/getallorders',[OrderController::class,'getallorders']);
 Route::put('adminupdateorder/{id}',[OrderController::class,'adminupdateorder']);
 
-
 Route::get('products',[ProductController::class,'index'])->name('products.index');
 Route::get('products/{id}',[ProductController::class,'show'])->name('products.show');
 Route::put('products/{id}',[ProductController::class,'update'])->name('products.update');
@@ -83,18 +73,14 @@ Route::post('products',[ProductController::class,'store'])->name('products.store
 Route::get('/random-products', [ProductController::class, 'randomProducts']);
 Route::get('/get-product/{id}', [ProductController::class, 'getproduct']);
 
-
-
 Route::group(['middleware'=>['auth:sanctum']],function () {
 Route::get('sellers',[SellerController::class,'index'])->name('sellers.index');
 Route::get('sellers/{id}',[SellerController::class,'show'])->name('sellers.show');
 Route::put('sellers/{id}',[SellerController::class,'update'])->name('sellers.update');
 Route::delete('sellers/{id}',[SellerController::class,'destroy'])->name('sellers.destroy');
 
-// Route::post('sellers',[SellerController::class,'store'])->name('sellers.store');
 Route::apiResource('/sellers','SellerController')->except(['index','show','update','destroy']);
 });
-
 Route::post('/auth/registerseller', [SellerController::class, 'store']);
 Route::post('/auth/loginseller', [SellerController::class, 'loginseller']);
 Route::post('/auth/logoutseller', [SellerController::class, 'logoutseller']);

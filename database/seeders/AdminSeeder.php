@@ -19,20 +19,26 @@ class AdminSeeder extends Seeder
         DB::table('admins')->truncate();
         $admins=[
             [
-                'username'=>'mosab',
-                'password'=>Hash::make('mosab123'),
+                'username'=>'nehalkanoun',
+                'password'=>Hash::make('123456789'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
 
             ],
             [
-                'username'=>'nehal',
-                'password'=>Hash::make('nehal123'),
+                'username'=>'mosabsalem',
+                'password'=>Hash::make('123456789'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'username'=>'nehal2',
+                'username'=>'testadmin',
+                'password'=>Hash::make('123456789'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'username'=>'deleteadmin',
                 'password'=>Hash::make('123456789'),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
