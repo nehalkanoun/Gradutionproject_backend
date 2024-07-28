@@ -58,13 +58,7 @@ class OrderSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
-            [
-                'product_ID'=>'11',
-                'amount'=>'3',
-                'cart_ID'=>'2',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ],
+
 
         ];
         DB::table('orders')->insert($orders);

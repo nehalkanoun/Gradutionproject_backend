@@ -32,7 +32,7 @@ class ProductSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'name'=>' كوروكيت البطاطا بالخضروات',
+                'name'=>'كوروكيت البطاطا',
                 'price'=>'4',
                 'seller_ID'=>'2',
                 'created_at' => Carbon::now(),
@@ -53,7 +53,7 @@ class ProductSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'name'=>' طبق رئيسي 3 انواع ',
+                'name'=>' طبق رئيسي ثلاث انواع ',
                 'price'=>'12',
                 'seller_ID'=>'3',
                 'created_at' => Carbon::now(),
@@ -87,13 +87,7 @@ class ProductSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
-            [
-                'name'=>'كرت ',
-                'price'=>'5',
-                'seller_ID'=>'6',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ],
+
         ];
         DB::table('products')->insert($products);
     }

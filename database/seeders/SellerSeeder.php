@@ -68,16 +68,7 @@ class SellerSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
-            [
-                'username' => 'deleted seller',
-                'password' => Hash::make('123456789'),
-                'phonenumber' => '0921212119',
-                'location' => 'بلعون',
 
-                'details' => 'شركه لتقديم كروت الافراح',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ],
         ];
         DB::table('sellers')->insert($sellers);
 
