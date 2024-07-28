@@ -25,35 +25,35 @@ class ProductSeeder extends Seeder
 
             ],
             [
-                'name'=>' عصير البرتقال ',
+                'name'=>' عصير برتقال ',
                 'price'=>'8',
                 'seller_ID'=>'1',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'name'=>'كوروكيت البطاطا',
+                'name'=>' كوروكيت البطاطا بالخضروات',
                 'price'=>'4',
                 'seller_ID'=>'2',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'name'=>' طبق مقبلات ',
+                'name'=>' مقبلات ',
                 'price'=>'4',
                 'seller_ID'=>'2',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'name'=>' رز بالخلطه',
+                'name'=>' وجبه رئيسيه رز باللحم والمكسرات',
                 'price'=>'4',
                 'seller_ID'=>'2',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'name'=>' طبق رئيسي ثلاث انواع ',
+                'name'=>' طبق رئيسي 3 انواع ',
                 'price'=>'12',
                 'seller_ID'=>'3',
                 'created_at' => Carbon::now(),
@@ -74,20 +74,26 @@ class ProductSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'name'=>' كرت دعوه حجم صغير ',
+                'name'=>'كرت ',
                 'price'=>'4',
                 'seller_ID'=>'5',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
-                'name'=>' كرت دعوه ',
+                'name'=>'كرت ',
                 'price'=>'5',
                 'seller_ID'=>'5',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
-
+            [
+                'name'=>'كرت ',
+                'price'=>'5',
+                'seller_ID'=>'6',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
         ];
         DB::table('products')->insert($products);
     }
