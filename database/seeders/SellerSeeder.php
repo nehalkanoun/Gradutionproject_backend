@@ -27,7 +27,7 @@ class SellerSeeder extends Seeder
 
             ],
             [
-                'username' => 'المطبخ العربي',
+                'username' => 'Arabian kitchen',
                 'password' => Hash::make('123456789'),
                 'phonenumber' => '0924555000',
                 'location' => 'الرحبه',
@@ -36,7 +36,7 @@ class SellerSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'username' => 'چميرا للتموين',
+                'username' => 'Jumeira Catering',
                 'password' => Hash::make('123456789'),
                 'phonenumber' => '0913092828',
                 'location' => '
@@ -59,7 +59,7 @@ class SellerSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'username' => 'الفخامه الملكية',
+                'username' => 'alfakhama cards',
                 'password' => Hash::make('123456789'),
                 'phonenumber' => '0924212119',
                 'location' => 'بلعون',
